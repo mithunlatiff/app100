@@ -12,12 +12,14 @@ LABEL io.k8s.description="This is a sample APP" \
 
 ENV BACKEND_HOST=localhost:8081 \
   DIR=/run/nginx.pid \
-  DIRR=/var/log/nginx
+  DIRR=/var/log/nginx \
+  DI=/etc/nginx/ \
+  MM=nginx.conf
 
 RUN yum install -y --disableplugin=subscription-manager --nodocs nginx nginx-mod-http-perl && \
  yum clean all
 
-COPY nginx.conf /etc/nginx/
+COPY ${MM} ${DI}
 
 RUN touch ${DIR} && \
  chgrp -R 0 ${DIRR} ${DIR} && \
